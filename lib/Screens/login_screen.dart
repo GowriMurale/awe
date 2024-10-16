@@ -5,7 +5,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:awe_project/Components/helper_class.dart';
 import 'package:awe_project/Screens/dashboard_screen.dart';
-import 'package:awe_project/Screens/signup_screen.dart';
+import 'package:awe_project/Screens/change_password_screen.dart';
 import 'package:awe_project/globals/my_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -356,18 +356,26 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
 
         //MOBILE VIEW
-        mobile: Container(
+        mobile: Scaffold(
+          appBar: AppBar(
+            backgroundColor: bgColor,
+            title:SizedBox(
+              width:size.width * 0.40,
+              height:size.height * 0.2,
+              child: Image.asset('assets/images/awe logo.png'),
+            ),
+            toolbarHeight: MediaQuery.of(context).size.height * 0.1,
+          ),
+         body: Container(
+           width: size.width * 0.99,
           color: bgColor,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+
             children: [
-           SizedBox(
-             width:size.width * 0.270,
-             height:size.height * 0.080,
-             child: Image.asset('assets/images/awe logo.png'),
-           ),
               Container(
-                width:size.width * 0.330,
-                height: size.height * 0.340,
+                width:size.width * 0.430,
+                height: size.height * 0.33,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/login.png',)
@@ -378,8 +386,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 elevation: 3,
                 shadowColor: Colors.white,
                 child: Container(
-                  width: size.width * 0.55,
-                  height: size.height * 0.45,
+                  width: size.width * 0.68,
+                  height: size.height * 0.38,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -391,16 +399,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text("Login",style: TextStyle(fontSize: 16,fontFamily: 'Inter',decoration: TextDecoration.none,color: black),),
                       ),
                       Padding(
-                        padding:  EdgeInsets.only(right: size.width * 0.250,top: 8,bottom:size.height * 0.002),
+                        padding:  EdgeInsets.only(right: size.width * 0.350,top: 8,bottom:size.height * 0.002),
                         child: Text('User Id',style: TextStyle(fontFamily: 'Inter',fontSize: 13,color: black),),
                       ),
                       MobileTextField(controller3: userIdController, text3: 'User ID', icon3: Icons.person_outline),
                       SizedBox(height: size.height * 0.02,),
                       Padding(
-                        padding:  EdgeInsets.only(right:size.width * 0.250,top:size.height * 0.008,bottom: size.height * 0.002),
+                        padding:  EdgeInsets.only(right:size.width * 0.330,top:size.height * 0.008,bottom: size.height * 0.002),
                         child: Text('Password',style: TextStyle(fontFamily: 'Inter',fontSize: 13,color: black),),
                       ),
-                      PasswordTextField(controller: passwordController, width:size.width * 0.40,
+                      PasswordTextField(controller: passwordController, width:size.width * 0.50,
                           height: size.height * 0.045,),
                       SizedBox(height: size.height * 0.04,),
                       MaterialButton(
@@ -438,9 +446,10 @@ class _LoginScreenState extends State<LoginScreen> {
               )
             ],
           ),
-        ),
+       ),),
         paddingWidth: size.width * 0.1,
-        bgColor: bgColor);
+        bgColor: bgColor
+    );
   }
 }
 
@@ -552,7 +561,7 @@ class MobileTextField extends StatelessWidget {
       elevation: 2,
       shadowColor: Colors.white,
       child: Container(
-        width: size.width * 0.40,
+        width: size.width * 0.50,
         height: size.height * 0.045,
         child: Material(
           color: Colors.white,

@@ -150,7 +150,11 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
     return isValid;
   }
 
+
   Future<void> applyForLeave() async {
+    // Get current user's ID
+    String userId = await Amplify.Auth.getCurrentUser().then((user) => user.userId);
+
     if (_selectedLeaveType == null || from.text.isEmpty || to.text.isEmpty || days.text.isEmpty || reason.text.isEmpty) {
       // Show validation error dialog
       Get.defaultDialog(
@@ -186,7 +190,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
 
       // Try to submit the leave request
       final leaveStatus = LeaveStatus(
-        empID: empID,
+        empID: userId, // Use current user's ID
         leaveType: _selectedLeaveType!,
         fromDate: TemporalDate(fromDate),
         toDate: TemporalDate(toDate),
@@ -234,7 +238,6 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
       );
     }
   }
-  String empID = 'awe101';
 
 
   void _pickFile() async {
@@ -649,6 +652,8 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                                 Transform.scale(
                                   scale: 1.4, // Adjust this value to change the checkbox size
                                   child: Container(
+                                    width: size.width * 0.014,
+                                    height: size.height * 0.023,
                                     color: Colors.white,
                                     child: Checkbox(
                                       value: isManager,
@@ -680,6 +685,8 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                                 Transform.scale(
                                   scale: 1.4, // Adjust this value to change the checkbox size
                                   child: Container(
+                                    width: size.width * 0.014,
+                                    height: size.height * 0.023,
                                     color: Colors.white,
                                     child: Checkbox(
                                       value: isSuperior,
@@ -941,7 +948,6 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
             ),
           )
         ),
-
         //TAB VIEW
         tablet: Scaffold(
           backgroundColor: Colors.white,
@@ -1621,372 +1627,446 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                 ],
               ),
             ),
-
         ),
 
-        //M0BILE  VIEW
         mobile: Scaffold(
           backgroundColor: Colors.white,
-          body:
-           SingleChildScrollView(
-             child: Column(
-                children: [
-                  Card(
-                    elevation: 1,
-                    child: Container(
-                      height: size.height * 0.07,
-                      decoration: BoxDecoration(
-                        color: bgColor,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5),bottomLeft: Radius.zero,bottomRight: Radius.zero),
+          appBar: AppBar(
+              backgroundColor: Colors.white,
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(1.0), // Height of the border
+                child: Container(
+                  color: Colors.black12, // Border color
+                  height: 1.0, // Height of the border
+                ),
+              ),
+              actions: [
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding:  EdgeInsets.only(left: 1),
+                      child: Container(
+                        width: size.width * 0.160,
+                        height: size.height * 0.0400,
+                        child: Image.asset('assets/images/awe logo.png',),
                       ),
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding:  EdgeInsets.only(left: 5),
-                            child: Container(
-                              width: size.width * 0.185,
-                              height: size.height * 0.045,
-                              child: Image.asset('assets/images/awe logo.png',),
-                            ),
-                          ),
-                          SizedBox(width: size.width * 0.70,),
-                          GestureDetector(
-                            onTap: (){
-                              _confirmSignOut(context);
-                            },
-                            child: Stack(
-                              alignment: Alignment.bottomRight,
-                              children: [
-                                CircleAvatar(
-                                  radius: 16,
-                                  child: Image.asset('assets/images/user image.png'),
-                                ),
-                              ],
-                            ),
+                    ),
+                    SizedBox(width: size.width * 0.7,),
+                    GestureDetector(
+                      onTap: (){
+                        _confirmSignOut(context);
+                      },
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          CircleAvatar(
+                            radius: 25,
+                            child: Image.asset('assets/images/user image.png'),
                           ),
                         ],
                       ),
                     ),
+                  ],
+                ),
+
+              ]),
+          body:
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    SizedBox(width: size.width * 0.02,),
+                    IconButton(onPressed: (){
+                      Get.back();
+                    }, icon: Icon(Icons.arrow_back,size: 18,color: Colors.black,)),
+                    SizedBox(width: size.width * 0.25,),
+                    Text('Apply Leave',style: TextStyle(fontFamily: 'Inter',fontSize: 15,fontWeight: FontWeight.bold,color: black),),
+                  ],
+                ),
+                SizedBox(height: size.height * 0.005,),
+                Container(
+                  width: size.width * 0.93,
+                  height: size.height * 0.80,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.grey.shade300,width: 1),
+                      color: pink
                   ),
-                  Row(
+                  child: Column(
                     children: [
-                      SizedBox(width: size.width * 0.15,),
-                      IconButton(onPressed: (){
-                        Get.back();
-                      }, icon: Icon(Icons.arrow_back,size: 18,color: Colors.black,)),
-                      SizedBox(width: size.width * 0.18,),
-                      Text('Apply Leave',style: TextStyle(fontFamily: 'Inter',fontSize: 15,fontWeight: FontWeight.bold,color: black),),
-                    ],
-                  ),
-                  SizedBox(height: size.height * 0.010,),
-                  Container(
-                    width: size.width * 0.88,
-                    height: size.height * 0.83,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.grey.shade300,width: 1),
-                        color: pink
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: size.height * 0.045,),
-                        Row(
-                          children: [
-                            SizedBox(width: size.width * 0.06,),
-                            Text('Badge #:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
-                            SizedBox(width: size.width * 0.040,),
-                            phoneContainer(context, '0001'),
-                            SizedBox(width: size.width * 0.100,),
-                            Text('Name:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
-                            SizedBox(width: size.width * 0.112,),
-                            phoneContainer(context, 'Adinin'),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.034,),
-                        Row(
-                          children: [
-                            SizedBox(width: size.width * 0.06,),
-                            Text('Dept/Dev:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
-                            SizedBox(width: size.width * 0.031,),
-                            phoneContainer(context, 'Xyz'),
-                            SizedBox(width: size.width * 0.100,),
-                            Text('Job Title:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
-                            SizedBox(width: size.width * 0.078,),
-                            phoneContainer(context, 'Worker'),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.034,),
-                        Row(
-                          // Align error message properly
-                          children: [
-                            SizedBox(width: size.width * 0.06,),
-                            Text(
-                              'Leave Type:',
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+                      SizedBox(height: size.height * 0.035,),
+                      Row(
+                        children: [
+                          SizedBox(width: size.width * 0.04,),
+                          Text('Badge #:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
+                          SizedBox(width: size.width * 0.020,),
+                          phoneContainer(context, '0001'),
+                          SizedBox(width: size.width * 0.0999,),
+                          Text('Name:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
+                          SizedBox(width: size.width * 0.143,),
+                          phoneContainer(context, 'Adinin'),
+                        ],
+                      ),
+                      SizedBox(height: size.height * 0.034,),
+                      Row(
+                        children: [
+                          SizedBox(width: size.width * 0.04,),
+                          Text('Dept/Dev:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
+                          SizedBox(width: size.width * 0.010,),
+                          phoneContainer(context, 'Xyz'),
+                          SizedBox(width: size.width * 0.099,),
+                          Text('Job Title:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
+                          SizedBox(width: size.width * 0.099,),
+                          phoneContainer(context, 'Worker'),
+                        ],
+                      ),
+                      SizedBox(height: size.height * 0.034,),
+                      Row(
+                        // Align error message properly
+                        children: [
+                          SizedBox(width: size.width * 0.04,),
+                          Text(
+                            'Leave Type:',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
-                            SizedBox(width: size.width * 0.013),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Error message for Leave Type
-                                if (leaveTypeError != null)
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 4), // Adjust padding above dropdown
-                                    child: Text(
-                                      leaveTypeError!,
-                                      style: TextStyle(color: Colors.red, fontSize: 08), // Error text styling
-                                    ),
+                          ),
+                          SizedBox(width: size.width * 0.010),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Error message for Leave Type
+                              if (leaveTypeError != null)
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 4), // Adjust padding above dropdown
+                                  child: Text(
+                                    leaveTypeError!,
+                                    style: TextStyle(color: Colors.red, fontSize: 08), // Error text styling
                                   ),
-             
-                                // Leave Type Dropdown
-                                Container(
-                                  width: size.width * 0.24,
-                                  height: size.height * 0.032,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.grey.shade400, // Keep the border color gray always
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(2),
-                                    color: Colors.white,
+                                ),
+                              // Leave Type Dropdown
+                              Container(
+                                width: size.width * 0.24,
+                                height: size.height * 0.032,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey.shade400, // Keep the border color gray always
+                                    width: 1,
                                   ),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton<String>(
-                                        value: _selectedLeaveType,
-                                        hint: Padding(
-                                          padding: EdgeInsets.only(left: size.width * 0.005),
-                                          child: Text(
-                                            'Select Type',
-                                            style: TextStyle(fontFamily: 'Inter', fontSize: 10, color: grey),
-                                          ),
+                                  borderRadius: BorderRadius.circular(2),
+                                  color: Colors.white,
+                                ),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      value: _selectedLeaveType,
+                                      hint: Padding(
+                                        padding: EdgeInsets.only(left: size.width * 0.005),
+                                        child: Text(
+                                          'Select Type',
+                                          style: TextStyle(fontFamily: 'Inter', fontSize: 10, color: grey),
                                         ),
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            _selectedLeaveType = newValue;
-                                          });
-                                        },
-                                        items: _leaveTypes.map((String leaveType) {
-                                          return DropdownMenuItem<String>(
-                                            value: leaveType,
-                                            child: Padding(
-                                              padding: EdgeInsets.only(left: size.width * 0.01),
-                                              child: Text(
-                                                leaveType,
-                                                style: TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 7,
-                                                  color: Colors.black,
-                                                ),
+                                      ),
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          _selectedLeaveType = newValue;
+                                        });
+                                      },
+                                      items: _leaveTypes.map((String leaveType) {
+                                        return DropdownMenuItem<String>(
+                                          value: leaveType,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(left: size.width * 0.01),
+                                            child: Text(
+                                              leaveType,
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: 7,
+                                                color: Colors.black,
                                               ),
                                             ),
-                                          );
-                                        }).toList(),
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down_outlined,
-                                          size: 23,
-                                          color: Colors.black,
-                                        ),
-                                        isExpanded: true, // Ensures the dropdown takes full width
+                                          ),
+                                        );
+                                      }).toList(),
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_outlined,
+                                        size: 23,
+                                        color: Colors.black,
                                       ),
+                                      isExpanded: true, // Ensures the dropdown takes full width
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: size.width * 0.015),
+                          Text(
+                            'Leave balance:',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
-             
-                            SizedBox(width: size.width * 0.045),
-                            Text(
-                              'Leave balance:',
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                          ),
+                          SizedBox(width: size.width * 0.029),
+                          phoneContainer(context, '04'),
+                        ],
+                      ),
+                      SizedBox(height: size.height * 0.02,),
+                      Row(
+                        children: [
+                          //Half day
+                          SizedBox(width: size.width * 0.04,),
+                          Text('Half day:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
+                          SizedBox(width: size.width * 0.049,),
+                          Container(
+                            width: size.width * 0.035,
+                            height: size.height * 0.026,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.shade400, // Keep the border color gray always
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(2),
+                              color: Colors.white,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isHalfDay = !isHalfDay; // Toggle half-day state
+                                  if (_fromDate != null && _toDate != null) {
+                                    _calculateDays(); // Recalculate days whenever half-day is toggled
+                                  }
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(0),
+                                  color: isHalfDay ? Colors.blue : Colors.transparent, // Optional: change color when selected
+                                ),
+                                child: Center(
+                                  child: isHalfDay
+                                      ? Icon(Icons.check, color: Colors.white, size: 20) // Show tick icon when selected
+                                      : null,
+                                ),
                               ),
                             ),
-                            SizedBox(width: size.width * 0.014),
-                            phoneContainer(context, '04'),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.029,),
-                        Row(
-                          children: [
-                            //Half day
-                            SizedBox(width: size.width * 0.06,),
-                            Text('Half day:',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black,),),
-                            SizedBox(width: size.width * 0.042,),
-                            Container(
-                              width: size.width * 0.035,
-                              height: size.height * 0.026,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey.shade400, // Keep the border color gray always
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(2),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: size.height * 0.034,),
+                      Row(
+                        children: [
+                          SizedBox(width: size.width * 0.20,),
+                          Text('From',style: TextStyle(fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold,color: black,),),
+                          SizedBox(width: size.width * 0.191,),
+                          Text('To',style: TextStyle(fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold,color: black,),),
+                          SizedBox(width: size.width * 0.21,),
+                          Text('No of days',style: TextStyle(fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold,color: black,),),
+                        ],
+                      ),
+                      SizedBox(height: size.height * 0.008,),
+                      Row(// Align error messages properly
+                        children: [
+                          SizedBox(width: size.width * 0.03,),
+                          Text(
+                            'Select Date:',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(width: size.width * 0.020),
+                          // From Date TextField
+                          PhoneField(
+                            controller: from,
+                            errorMessage: fromDateError,
+                            onTap: (context) => _selectDate(context, from, true),
+                          ),
+                          SizedBox(width: size.width * 0.020),
+                          PhoneField(
+                            controller: to,
+                            errorMessage: toDateError,
+                            onTap: (context) => _selectDate(context, to, false),
+                          ),
+                          // To Date TextField
+                          SizedBox(width: size.width * 0.040),
+                          // Days TextField
+                          Container(
+                            width: size.width * 0.145,
+                            height: size.height * 0.031,
+                            decoration: BoxDecoration(
                                 color: Colors.white,
+                                border: Border.all(color: Colors.grey.shade400,width: 1)
+                            ),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: TextField(
+                                controller: days,
+                                readOnly: true,
+                                style: TextStyle(
+                                  fontSize: 11, // Set a smaller font size for the picked date
+                                  color: Colors.black, // You can also control the color of the text
+                                ),
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(16),
+                                  border: InputBorder.none,
+                                ),
                               ),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isHalfDay = !isHalfDay; // Toggle half-day state
-                                    if (_fromDate != null && _toDate != null) {
-                                      _calculateDays(); // Recalculate days whenever half-day is toggled
-                                    }
-                                  });
-                                },
-                                child: Container(
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: size.height * 0.038,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // Aligns error to the left
+                        children: [
+                          // Conditionally show the error message above the checkboxes
+                          if (applyToError != null)
+                            Padding(
+                              padding: EdgeInsets.only(left: size.width * 0.22, bottom: 4), // Align error message
+                              child: Text(
+                                applyToError!,
+                                style: TextStyle(color: Colors.red, fontSize: 08), // Styling for error message
+                              ),
+                            ),
+                          Row(
+                            children: [
+                              SizedBox(width: size.width * 0.06),
+                              Text(
+                                'Apply To:',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(width: size.width * 0.035),
+                              Text(
+                                'Manager:',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(width: size.width * 0.015),
+                              Transform.scale(
+                                scale: 1.0, // Adjust this value to change the checkbox size
+                                child: Checkbox(
+                                  value: isManager,
+                                  onChanged: (bool? newValue) {
+                                    setState(() {
+                                      isManager = newValue ?? false;
+                                    });// Validate all fields when user selects/deselects
+                                  },
+                                  side: BorderSide(
+                                    color: Colors.grey.shade500, // Light grey border color
+                                    width: 1,
+                                  ),
+                                  activeColor: Colors.blue, // Optional: change checkbox color when selected
+                                  checkColor: Colors.white, // Optional: checkmark color
+                                ),
+                              ),
+                              SizedBox(width: size.width * 0.085),
+                              Text(
+                                'Superior:',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(width: size.width * 0.015),
+                              Transform.scale(
+                                scale: 1.0, // Adjust this value to change the checkbox size
+                                child: Checkbox(
+                                  value: isSuperior,
+                                  onChanged: (bool? newValue) {
+                                    setState(() {
+                                      isSuperior = newValue ?? false;
+                                    });
+                                    // Validate all fields when user selects/deselects
+                                  },
+                                  side: BorderSide(
+                                    color: Colors.grey.shade500,
+                                    width: 1,
+                                  ),
+                                  activeColor: Colors.blue,
+                                  checkColor: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.025,),
+                          Row(
+                            children: [
+                              SizedBox(width: size.width * 0.19),
+                              Text(
+                                'If Sick:',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.009,),
+                          Row(
+                            children: [
+                              SizedBox(width: size.width * 0.19),
+                              Container(
+                                  width: size.width * 0.55,
+                                  height: size.height * 0.035,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(0),
-                                    color: isHalfDay ? Colors.blue : Colors.transparent, // Optional: change color when selected
+                                      color: Colors.white,
+                                      border: Border.all(color: Colors.grey.shade400,width: 1)
                                   ),
-                                  child: Center(
-                                    child: isHalfDay
-                                        ? Icon(Icons.check, color: Colors.white, size: 20) // Show tick icon when selected
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.034,),
-                        Row(
-                          children: [
-                            SizedBox(width: size.width * 0.20,),
-                            Text('From',style: TextStyle(fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold,color: black,),),
-                            SizedBox(width: size.width * 0.191,),
-                            Text('To',style: TextStyle(fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold,color: black,),),
-                            SizedBox(width: size.width * 0.23,),
-                            Text('No of days',style: TextStyle(fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold,color: black,),),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.008,),
-                        Row(// Align error messages properly
-                          children: [
-                            SizedBox(width: size.width * 0.05,),
-                            Text(
-                              'Select Date:',
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(width: size.width * 0.020),
-             
-                            // From Date TextField
-                            PhoneField(
-                              controller: from,
-                              errorMessage: fromDateError,
-                              onTap: (context) => _selectDate(context, from, true),
-                            ),
-             
-                            SizedBox(width: size.width * 0.035),
-                            PhoneField(
-                              controller: to,
-                              errorMessage: toDateError,
-                              onTap: (context) => _selectDate(context, to, false),
-                            ),
-                            // To Date TextField
-
-                            SizedBox(width: size.width * 0.040),
-                            // Days TextField
-                            Container(
-                              width: size.width * 0.145,
-                              height: size.height * 0.031,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(color: Colors.grey.shade400,width: 1)
-                              ),
-                              child: Material(
-                                color: Colors.transparent,
-                                child: TextField(
-                                  controller: days,
-                                  readOnly: true,
-                                  style: TextStyle(
-                                    fontSize: 11, // Set a smaller font size for the picked date
-                                    color: Colors.black, // You can also control the color of the text
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(16),
-                                    border: InputBorder.none,
-                                  ),
-
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.038,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start, // Aligns error to the left
-                          children: [
-                            // Conditionally show the error message above the checkboxes
-                            if (applyToError != null)
-                              Padding(
-                                padding: EdgeInsets.only(left: size.width * 0.22, bottom: 4), // Align error message
-                                child: Text(
-                                  applyToError!,
-                                  style: TextStyle(color: Colors.red, fontSize: 08), // Styling for error message
-                                ),
-                              ),
-                            Row(
-                              children: [
-                                SizedBox(width: size.width * 0.06),
-                                Text(
-                                  'Apply To:',
-                                  style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-             
-                                  ),
-                                ),
-                                SizedBox(width: size.width * 0.035),
-                                Text(
-                                  'Manager:',
-                                  style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-             
-                                  ),
-                                ),
-                                SizedBox(width: size.width * 0.015),
-                                Transform.scale(
-                                  scale: 1.0, // Adjust this value to change the checkbox size
-                                  child: Container(
-                                    color: Colors.white,
-                                    child: Checkbox(
-                                      value: isManager,
-                                      onChanged: (bool? newValue) {
-                                        setState(() {
-                                          isManager = newValue ?? false;
-                                        });// Validate all fields when user selects/deselects
-                                      },
-                                      side: BorderSide(
-                                        color: Colors.grey.shade500, // Light grey border color
-                                        width: 1,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: size.width * 0.01),
+                                      Align(
+                                          alignment: Alignment.center,
+                                          child: Text('Upload Medical Certificate',style: TextStyle(fontFamily: 'Inter',fontSize: 10,color: Colors.grey),)),
+                                      Spacer(), // Space between text and icon
+                                      Transform.translate( // Adjust the icon position with Transform.translate
+                                        offset: Offset(1, -3), // Adjust the vertical offset as needed
+                                        child: IconButton(
+                                          onPressed: (){
+                                            _pickFile();
+                                          },
+                                          icon: Icon(Icons.file_upload_outlined,size: 16,color: black,),
+                                        ),
                                       ),
-                                      activeColor: Colors.blue, // Optional: change checkbox color when selected
-                                      checkColor: Colors.white, // Optional: checkmark color
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: size.width * 0.085),
-                                Text(
-                                  'Superior:',
+                                    ],
+                                  )
+                              )
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.025,),
+                          Row(
+                            // Align error message properly
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(left: size.width * 0.07, bottom: size.height * 0.070),
+                                child: Text(
+                                  'Reason:',
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 11,
@@ -1994,258 +2074,169 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                SizedBox(width: size.width * 0.015),
-                                Transform.scale(
-                                  scale: 1.0, // Adjust this value to change the checkbox size
-                                  child: Checkbox(
-                                    value: isSuperior,
-                                    onChanged: (bool? newValue) {
-                                      setState(() {
-                                        isSuperior = newValue ?? false;
-                                      });
-                                      // Validate all fields when user selects/deselects
-                                    },
-                                    side: BorderSide(
-                                      color: Colors.grey.shade500,
-                                      width: 1,
+                              ),
+                              SizedBox(width: size.width * 0.049), // Adjust space between label and text field as needed
+                              // Reason TextField
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Error message for Reason
+                                  if (reasonError != null)
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 4), // Adjust padding below error message
+                                      child: Text(
+                                        reasonError!,
+                                        style: TextStyle(color: Colors.red, fontSize: 08), // Error text styling
+                                      ),
                                     ),
-                                    activeColor: Colors.blue,
-                                    checkColor: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: size.height * 0.025,),
-                            Row(
-                              children: [
-                                SizedBox(width: size.width * 0.19),
-                                Text(
-                                  'If Sick:',
-                                  style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: size.height * 0.010,),
-                            Row(
-                              children: [
-                                SizedBox(width: size.width * 0.19),
-                                Container(
-                                    width: size.width * 0.36,
-                                    height: size.height * 0.035,
+
+                                  Container(
+                                    width: size.width * 0.49, // Specify the width of the TextField
+                                    height: size.height * 0.06,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         border: Border.all(color: Colors.grey.shade400,width: 1)
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(width: size.width * 0.004),
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Text('Upload Medical Certificate',style: TextStyle(fontFamily: 'Inter',fontSize: 10,color: Colors.grey),)),
-                                        SizedBox(width: size.width * 0.012),
-                                        Spacer(), // Space between text and icon
-                                        Transform.translate( // Adjust the icon position with Transform.translate
-                                          offset: Offset(1, -3), // Adjust the vertical offset as needed
-                                          child: IconButton(
-                                            onPressed: (){
-                                              _pickFile();
-                                            },
-                                            icon: Icon(Icons.file_upload_outlined,size: 16,color: black,),
-             
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                )
-                              ],
-                            ),
-                            SizedBox(height: size.height * 0.025,),
-                            Row(
-                              // Align error message properly
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(left: size.width * 0.07, bottom: size.height * 0.070),
-                                  child: Text(
-                                    'Reason:',
-                                    style: TextStyle(
-                                      fontFamily: 'Inter',
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                    child: TextField(
+                                      controller: reason,
+                                      style: TextStyle(fontSize: 14), // Adjust text size within the TextField
+                                      maxLines: null, // Allows the TextField to expand vertically
+                                      expands: true, // Allows the TextField content to fill the available space
+                                      textAlignVertical: TextAlignVertical.top, // Centers text vertically
+                                      decoration: InputDecoration(
+                                        hintText: 'Text Here',
+                                        border: InputBorder.none,
+                                        hintStyle: TextStyle(color: Colors.grey),
+                                        contentPadding: EdgeInsets.only(top: size.height * 0.015, left: size.width * 0.010), // Padding inside the TextField
+
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(width: size.width * 0.040), // Adjust space between label and text field as needed
-             
-                                // Reason TextField
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.006,),
+                          Row(
+                            children: [
+                              SizedBox(width: size.width * 0.20,),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'I have read and accept the ', // First part of the text
+                                  style: TextStyle(
+                                    color: Colors.black, // Default text color
+                                    fontSize: 12,
+                                    fontFamily: 'Inter',
+                                  ),
                                   children: [
-                                    // Error message for Reason
-                                    if (reasonError != null)
-                                      Padding(
-                                        padding: EdgeInsets.only(bottom: 4), // Adjust padding below error message
-                                        child: Text(
-                                          reasonError!,
-                                          style: TextStyle(color: Colors.red, fontSize: 08), // Error text styling
-                                        ),
+                                    TextSpan(
+                                      text: 'leave policies', // Clickable link
+                                      style: TextStyle(
+                                        color: Colors.blue, // Link color
+                                        decoration: TextDecoration.underline, // Underline the link
                                       ),
-             
-                                    Container(
-                                      width: size.width * 0.36, // Specify the width of the TextField
-                                      height: size.height * 0.06,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(color: Colors.grey.shade400,width: 1)
-                                      ),
-                                      child: TextField(
-                                        controller: reason,
-                                        style: TextStyle(fontSize: 14), // Adjust text size within the TextField
-                                        maxLines: null, // Allows the TextField to expand vertically
-                                        expands: true, // Allows the TextField content to fill the available space
-                                        textAlignVertical: TextAlignVertical.top, // Centers text vertically
-                                        decoration: InputDecoration(
-                                          hintText: 'Text Here',
-                                          border: InputBorder.none,
-                                          hintStyle: TextStyle(color: Colors.grey),
-                                          contentPadding: EdgeInsets.only(top: size.height * 0.015, left: size.width * 0.010), // Padding inside the TextField
-
-                                        ),
-                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () async {
+                                          const url = 'https://commonfiles.s3.ap-southeast-1.amazonaws.com/Policy/INSTRUCTION+FOR+APPLICATION+FOR+LEAVE+.pdf';
+                                          if (await canLaunch(url)) {
+                                            await launch(url, forceSafariVC: false); // Open in browser
+                                          } else {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text('Could not launch the URL'),
+                                              ),
+                                            );
+                                          }
+                                        },
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            SizedBox(height: size.height * 0.006,),
-                            Row(
-                              children: [
-                                SizedBox(width: size.width * 0.18,),
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'I have read and accept the ', // First part of the text
-                                    style: TextStyle(
-                                      color: Colors.black, // Default text color
-                                      fontSize: 12,
-                                      fontFamily: 'Inter',
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: 'leave policies', // Clickable link
-                                        style: TextStyle(
-                                          color: Colors.blue, // Link color
-                                          decoration: TextDecoration.underline, // Underline the link
-                                        ),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () async {
-                                            const url = 'https://commonfiles.s3.ap-southeast-1.amazonaws.com/Policy/INSTRUCTION+FOR+APPLICATION+FOR+LEAVE+.pdf';
-                                            if (await canLaunch(url)) {
-                                              await launch(url, forceSafariVC: false); // Open in browser
-                                            } else {
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(
-                                                  content: Text('Could not launch the URL'),
-                                                ),
-                                              );
-                                            }
-                                          },
-                                      ),
-                                    ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.035,),
+                          Row(
+                            children: [
+                              SizedBox(width: size.width * 0.25,),
+                              OutlinedButton(
+                                onPressed: () {
+                                  Get.off(DashBoardScreeen());
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  minimumSize: Size(size.width * 0.020, size.height * 0.035), // Similar to minWidth and height in MaterialButton
+                                  side: BorderSide(color: grey), // Define the border color for the outlined button
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4), // Adjust the border radius as needed
                                   ),
                                 ),
-                              ],
-                            ),
-                            SizedBox(height: size.height * 0.035,),
-                            Row(
-                              children: [
-                                SizedBox(width: size.width * 0.25,),
-                                OutlinedButton(
+                                child: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: black,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: size.width * 0.03,),
+                              Material(
+                                borderRadius: BorderRadius.circular(45),
+                                child: MaterialButton(
                                   onPressed: () {
-                                    Get.off(DashBoardScreeen());
+                                    // Validate all fields before applying
+                                    if (_validateFields()) {
+                                      // All fields are filled, show confirmation popup with Yes and No buttons
+                                      Get.defaultDialog(
+                                        title: 'Confirm',
+                                        content: Text('Are you sure you want to apply?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              // Action on No (cancel)
+                                              Get.back(); // Clo  se the dialog
+                                            } ,
+                                            child: Text('No', style: TextStyle(color: Colors.red)),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async {
+                                              Get.back(); // Close the dialog first
+
+                                              // Proceed with creating the leave request
+                                              await applyForLeave(); // This will show success/error dialogs based on the result
+                                            },
+                                            child: Text('Yes', style: TextStyle(color: Colors.green)),
+                                          ),
+                                        ],
+                                      );
+                                    } else {
+                                      // Show error alert dialog if fields are missing
+                                      Get.defaultDialog(
+                                        title: 'Error',
+                                        content: Text('Please fill all required fields.'),
+                                        confirmTextColor: Colors.white,
+                                        onConfirm: () {
+                                          Get.back(); // Close the dialog
+                                        },
+                                      );
+                                    }
                                   },
-                                  style: OutlinedButton.styleFrom(
-                                    minimumSize: Size(size.width * 0.010, size.height * 0.045), // Similar to minWidth and height in MaterialButton
-                                    side: BorderSide(color: grey), // Define the border color for the outlined button
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(0), // Adjust the border radius as needed
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                      fontFamily: 'Inter',
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: black,
-                                    ),
-                                  ),
+                                  minWidth: size.width * 0.19,
+                                  height: size.height * 0.035,
+                                  color: yellow,
+                                  child: Text('Apply',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black),),
                                 ),
-                                SizedBox(width: size.width * 0.03,),
-                                Material(
-                                  borderRadius: BorderRadius.circular(45),
-                                  child: MaterialButton(
-                                    onPressed: () {
-                                      // Validate all fields before applying
-                                      if (_validateFields()) {
-                                        // All fields are filled, show confirmation popup with Yes and No buttons
-                                        Get.defaultDialog(
-                                          title: 'Confirm',
-                                          content: Text('Are you sure you want to apply?'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                // Action on No (cancel)
-                                                Get.back(); // Clo  se the dialog
-                                              } ,
-                                              child: Text('No', style: TextStyle(color: Colors.red)),
-                                            ),
-                                            TextButton(
-                                              onPressed: () async {
-                                                Get.back(); // Close the dialog first
-             
-                                                // Proceed with creating the leave request
-                                                await applyForLeave(); // This will show success/error dialogs based on the result
-                                              },
-                                              child: Text('Yes', style: TextStyle(color: Colors.green)),
-                                            ),
-                                          ],
-                                        );
-                                      } else {
-                                        // Show error alert dialog if fields are missing
-                                        Get.defaultDialog(
-                                          title: 'Error',
-                                          content: Text('Please fill all required fields.'),
-                                          confirmTextColor: Colors.white,
-                                          onConfirm: () {
-                                            Get.back(); // Close the dialog
-                                          },
-                                        );
-                                      }
-                                    },
-                                    minWidth: size.width * 0.17,
-                                    height: size.height * 0.045,
-                                    color: yellow,
-                                    child: Text('Apply',style: TextStyle(fontFamily: 'Inter',fontSize: 11,fontWeight: FontWeight.bold,color: black),),
-                                  ),
-                                ),
-             
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-           ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
         paddingWidth: size.width * 0.1,
         bgColor: Colors.white);

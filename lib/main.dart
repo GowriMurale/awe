@@ -6,10 +6,11 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:awe_project/Screens/apply_leave_screen.dart';
 import 'package:awe_project/Screens/dashboard_screen.dart';
 import 'package:awe_project/Screens/login_screen.dart';
-import 'package:awe_project/Screens/signup_screen.dart';
+import 'package:awe_project/Screens/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'Screens/signup_dummy.dart';
 import 'amplifyconfiguration.dart';
 import 'globals/navigation_bar.dart';
 import 'models/ModelProvider.dart';
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DashBoardScreeen(),
+      home:  LoginScreen()
     );
   }
 }
@@ -80,7 +81,7 @@ class _MyAppState extends State<MyApp> {
 // applyTo: String!
 // reason: String!
 // medicalCertificate: String
-//
+// status: LeaveStatus
 //
 //
 // # Supervisor Approval Details
@@ -97,13 +98,10 @@ class _MyAppState extends State<MyApp> {
 // employeeStatus: LeaveStatus
 // employeeDate: AWSDateTime
 // employeeRemarks: String
-// }
 //
-// type Employee @model {
-// id: ID!
-// totalLeaves: Int!
-// leaveRequests: Int! # Updated when applying for leave
-// leavesTaken: Int! # Updated when approved by manager
-// remainingLeaves: Int! # Reflects the leaves left for the employee
-// }
+// #Hr ticket Approval Details
+//  hrStatus : TicketStatus
+//  hrDate:AWSDateTime
+//  hrRemarks:String
+
 

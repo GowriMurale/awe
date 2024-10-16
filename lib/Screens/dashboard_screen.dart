@@ -4,7 +4,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:awe_project/Components/dashboard.dart';
 import 'package:awe_project/Components/helper_class.dart';
-import 'package:awe_project/Screens/signup_screen.dart';
+import 'package:awe_project/Screens/change_password_screen.dart';
 import 'package:awe_project/globals/my_colors.dart';
 import 'package:awe_project/globals/navbar.dart';
 import 'package:flutter/material.dart';
@@ -12,19 +12,18 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-
 import '../globals/navigation_bar.dart';
 import '../models/CandidateApplicationForm.dart';
 import '../models/LeaveStatus.dart';
 import 'apply_leave_screen.dart';
 import 'login_screen.dart';
+
 class DashBoardScreeen extends StatefulWidget {
   @override
   State<DashBoardScreeen> createState() => _DashBoardScreeenState();
 }
 
 class _DashBoardScreeenState extends State<DashBoardScreeen> {
-
   //NAV BAR METHODS
   DateTime now = DateTime.now(); // Get the current date and time
   String formattedDate = DateFormat(' dd/MM/yyyy    HH:mm:ss').format(DateTime.now());
@@ -166,7 +165,6 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
   }
 
   void _showPopupMenu(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     showMenu(
       color: Colors.white,
       context: context,
@@ -177,34 +175,34 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height:size.height * 0.010,),
+              SizedBox(height: 10,),
               Container(
-                height:size.height * 0.070,
+                height: 70,
                 child: CircleAvatar(
                   backgroundImage: AssetImage('assets/images/user image.png'),
                   radius: 25,
                   child: Container(
-                    width:size.width * 0.110, // Width of the button
-                    height:size.height *  0.050, // Height of the button
-                    padding: EdgeInsets.symmetric(vertical:size.height * 0.010,horizontal:size.width * 0.008) ,
+                    width: 100, // Width of the button
+                    height: 30, // Height of the button
+                    padding: EdgeInsets.symmetric(vertical: 10,horizontal: 13) ,
                     child: IconButton(
                         color: Colors.black,
                         iconSize: 15,
                         padding: EdgeInsets.all(20),
                         onPressed: () {
-                          // _showPopupMenu(context);
+                          _showPopupMenu(context);
                         }, icon: Icon(Icons.photo_camera_outlined,)
                     ),
                   ),
                 ),
               ),
 
-              SizedBox(height:size.height * 0.005,),
+              SizedBox(height: 5,),
               Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                        height:size.height * 0.030,
+                        height: 20,
                         padding: EdgeInsets.only(left: 12),
                         child:Text('Personal Info',
                           style: TextStyle(fontSize: 16,
@@ -212,7 +210,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                               color: Colors.black87,
                               fontStyle: FontStyle.normal),)
                     ),
-                    SizedBox(width:size.width * 0.060,),
+                    SizedBox(width: 90,),
                     GestureDetector(
                       onTap: (){
                         _showEditDialog(context);
@@ -225,80 +223,81 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                                 style: TextStyle(fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.blue,
+                                  fontStyle: FontStyle.normal,
                                   decoration: TextDecoration.underline,
                                 ),
                                 // Use GestureRecognizer to detect taps
                               ),
                             ]),),
                     )]),
-              SizedBox(height:size.height * 0.007,),
+              SizedBox(height: 7,),
               Divider(
                 thickness: 1.5,
                 color: Colors.black45,
               ),
-              SizedBox(height:size.height * 0.003,),
+              SizedBox(height: 3,),
               Container(
-                height:size.height * 0.040,
-                width:size.width * 0.270,
+                height: 32,
+                width: 280,
                 decoration: BoxDecoration(
                   color: Colors.white, // Background color of the container
                   border: Border.all(
                     color: Colors.grey, // Border color
                     width: 1, // Border width
                   ),
-                  borderRadius: BorderRadius.circular(5), // Optional: rounded corners
+                  borderRadius: BorderRadius.circular(7), // Optional: rounded corners
                 ),
 
                 child: Row(
                     children: [
-                      SizedBox(width:size.width * 0.015,),
+                      SizedBox(width: 20,),
                       Text('Nur Hafiza',
                         style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.black87),),]),
               ),
-              SizedBox(height:size.height * 0.010,),
+              SizedBox(height: 10,),
               Container(
-                height:size.height * 0.040,
-                width:size.width * 0.270,
+                height: 32,
+                width: 280,
                 decoration: BoxDecoration(
                   color: Colors.white, // Background color of the container
                   border: Border.all(
                     color: Colors.grey, // Border color
                     width: 1, // Border width
                   ),
-                  borderRadius: BorderRadius.circular(5), // Optional: rounded corners
+                  borderRadius: BorderRadius.circular(7), // Optional: rounded corners
                 ),
                 child: Row(children: [
-                  SizedBox(width:size.width * 0.015,),
+                  SizedBox(width: 20,),
                   Text(
                     '8056863355',
                     style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.black87),),
                 ]),),
-              SizedBox(height:size.height * 0.010,),
+              SizedBox(height: 10,),
               Container(
-                height:size.height * 0.040,
-                width:size.width * 0.270,
+                width: 280,
+                height: 32,
                 decoration: BoxDecoration(
                   color: Colors.white, // Background color of the container
                   border: Border.all(
                     color: Colors.grey, // Border color
                     width: 1, // Border width
                   ),
-                  borderRadius: BorderRadius.circular(5), // Optional: rounded corners
+                  borderRadius: BorderRadius.circular(7), // Optional: rounded corners
                 ),
                 child:Row(children: [
-                  SizedBox(width:size.width * 0.015,),
+                  SizedBox(width: 20,),
                   Text(
                     'adinin@gmail.com',
                     style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.black87),
                   ),
                 ]),),
 
-              SizedBox(height:size.height * 0.010),
+              SizedBox(height: 10),
               Row(
                   children: [
                     Container(
-                      height:size.height * 0.040,
-                      width:size.width * 0.085,
+                      height: 30,
+                      width: 135,
                       child: OutlinedButton(
                         onPressed: () {
                           Get.to(() => changePasswordScreen(username: userIdController.text.trim()));
@@ -309,7 +308,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                           ),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5), // Rounded corners
+                              borderRadius: BorderRadius.circular(7), // Rounded corners
                             ),
                           ),
                         ),
@@ -317,10 +316,10 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                             fontSize: 10,fontWeight: FontWeight.bold,color: Colors.black)),
                       ),
                     ),
-                    SizedBox(width:size.width * 0.010,),
+                    SizedBox(width: 10,),
                     Container(
-                      height:size.height * 0.038,
-                      width:size.height * 0.150,
+                      height: 30,
+                      width: 110,
                       child: TextButton(
                         onPressed: () {
                           _confirmSignOut(context);
@@ -329,16 +328,16 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                           backgroundColor: Colors.yellow,
                           shape: RoundedRectangleBorder(
 
-                            borderRadius: BorderRadius.circular(5), // Rounded corners
+                            borderRadius: BorderRadius.circular(7), // Rounded corners
                           ),
                         ),
                         child: Row(
                             children: [
-                              SizedBox(width:size.width * 0.015,) ,
+                              SizedBox(width: 20,) ,
                               Text('Logout',style: TextStyle(
-                                  fontSize: 12,fontWeight: FontWeight.bold,color: Colors.black)),
-                              SizedBox(width:size.width * 0.005,) ,
-                              Icon(Icons.logout_outlined,size: 15,color: black,),
+                                  fontSize: 10,fontWeight: FontWeight.bold,color: Colors.black)),
+                              SizedBox(width: 5,) ,
+                              Icon(Icons.logout_outlined),
                             ]),
                       ),),
                     SizedBox(height: 50)
@@ -349,6 +348,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
       ],
     );
   }
+
 
   void _showEditDialog(BuildContext context) {
     TextEditingController fullName=TextEditingController();
@@ -454,12 +454,56 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
     );
   }
 
-  void _requestDialog(BuildContext context) {
-    TextEditingController departure=TextEditingController();
-    TextEditingController arrival=TextEditingController();
-    TextEditingController destination=TextEditingController();
-    TextEditingController remarks=TextEditingController();
+  String? departureError;
+  String? arrivalError;
+  String? destinationError;
+  String? remarksError;
 
+  TextEditingController departure=TextEditingController();
+  TextEditingController arrival=TextEditingController();
+  TextEditingController destination=TextEditingController();
+  TextEditingController remarks=TextEditingController();
+
+
+  void _requestDialog(BuildContext context) {
+
+    bool _validateField() {
+      bool isValid = true;
+
+      setState(() {
+        // Reset all error messages
+        departureError = null;
+        arrivalError = null;
+        destinationError = null;
+        remarksError = null;
+
+        // Validate Leave Type
+        if (departure.text.isEmpty) {
+          departureError = '* This field is required';
+          isValid = false;
+        }
+
+        // Validate From Date
+        if (arrival.text.isEmpty) {
+          arrivalError = '* This field is required';
+          isValid = false;
+        }
+
+        // Validate To Date
+        if (destination.text.isEmpty) {
+          destinationError = '* This field is required';
+          isValid = false;
+        }
+
+        // Validate Reason
+        if (remarks.text.isEmpty) {
+          remarksError = '* This field is required';
+          isValid = false;
+        }
+      });
+
+      return isValid;
+    }
     final Size size = MediaQuery.of(context).size;
     Get.dialog(
       Dialog(
@@ -504,7 +548,20 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                         SizedBox(width: size.width * 0.032,),
                         Text('Departure Date ',style: TextStyle(color: black,fontSize: 14, fontFamily: 'Inter'),),
                         SizedBox(width: size.width * 0.012,),
-                        requestContainer(context, departure, size.width * 0.090, size.height * 0.032),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if ( departureError!= null)
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 4), // Adjust padding below error message
+                                child: Text(
+                                  departureError!,
+                                  style: TextStyle(color: Colors.red, fontSize: 12), // Error text styling
+                                ),
+                              ),
+                            requestContainer(context, departure, size.width * 0.090, size.height * 0.032),
+                          ],
+                        ),
                       ],
                     ),
                     SizedBox(height: size.height * 0.020,),
@@ -513,7 +570,19 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                         SizedBox(width: size.width * 0.030,),
                         Text('Arrival  Date ',style: TextStyle(color: black,fontSize: 14, fontFamily: 'Inter'),),
                         SizedBox(width: size.width * 0.025,),
-                        requestContainer(context, arrival, size.width * 0.090, size.height * 0.032),
+                        Column(
+                          children: [
+                            if (arrivalError != null)
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 4), // Adjust padding below error message
+                                child: Text(
+                                  arrivalError!,
+                                  style: TextStyle(color: Colors.red, fontSize: 12), // Error text styling
+                                ),
+                              ),
+                            requestContainer(context, arrival, size.width * 0.090, size.height * 0.032),
+                          ],
+                        ),
                       ],
                     ),
                     SizedBox(height: size.height * 0.020,),
@@ -522,7 +591,19 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                         SizedBox(width: size.width * 0.030,),
                         Text('Destination',style: TextStyle(color: black,fontSize: 14, fontFamily: 'Inter'),),
                         SizedBox(width: size.width * 0.030,),
-                        requestContainer(context, destination, size.width * 0.090, size.height * 0.032),
+                        Column(
+                          children: [
+                            if (destinationError != null)
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 4), // Adjust padding below error message
+                                child: Text(
+                                  destinationError!,
+                                  style: TextStyle(color: Colors.red, fontSize: 12), // Error text styling
+                                ),
+                              ),
+                            requestContainer(context, destination, size.width * 0.090, size.height * 0.032),
+                          ],
+                        ),
                       ],
                     ),
                     SizedBox(height: size.height * 0.020,),
@@ -531,7 +612,19 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                         SizedBox(width: size.width * 0.030,),
                         Text('Remarks',style: TextStyle(color: black,fontSize: 14, fontFamily: 'Inter'),),
                         SizedBox(width: size.width * 0.040,),
-                        requestContainer(context, destination, size.width * 0.170, size.height * 0.088),
+                        Column(
+                          children: [
+                            if (remarksError != null)
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 4), // Adjust padding below error message
+                                child: Text(
+                                  remarksError!,
+                                  style: TextStyle(color: Colors.red, fontSize: 12), // Error text styling
+                                ),
+                              ),
+                            requestContainer(context, remarks, size.width * 0.170, size.height * 0.088),
+                          ],
+                        ),
                       ],
                     ),
                     SizedBox(height: size.height * 0.035,),
@@ -567,14 +660,55 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
 
                         SizedBox(width: size.width * 0.020,),
                         MaterialButton(
-                          minWidth: size.width * .06,
-                          height: size.height * 0.048,
-                          onPressed: () {
-                            Get.back(); // Close the dialog
+                          onPressed: () async {
+                            // Validate all fields before applying
+                            if (_validateField()) {
+                              // Show confirmation popup with Yes and No buttons
+                              Get.defaultDialog(
+                                title: 'Confirm',
+                                content: Text('Are you sure you want to apply?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.back(); // Close the dialog
+                                    },
+                                    child: Text('No', style: TextStyle(color: Colors.red)),
+                                  ),
+                                  TextButton(
+                                    onPressed: ()  {
+                                      Get.back(); // Close the dialog first
+
+                                      // Proceed with creating the leave request
+                                       // This will show success/error dialogs based on the result
+                                    },
+                                    child: Text('Yes', style: TextStyle(color: Colors.green)),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              // Show error alert dialog if fields are missing
+                              Get.defaultDialog(
+                                title: 'Error',
+                                content: Text('Please fill all required fields.'),
+                                confirmTextColor: Colors.white,
+                                onConfirm: () {
+                                  Get.back(); // Close the dialog
+                                },
+                              );
+                            }
                           },
-                          child: Text('Apply',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,fontFamily: 'Inter',),),
-                          color: Colors.yellow,
-                          textColor: Colors.black,
+                          minWidth: size.width * 0.06,
+                          height: size.height * 0.048,
+                          color: yellow,
+                          child: Text(
+                            'Apply',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: black,
+                            ),
+                          ),
                         ),
                       ],
                     )
@@ -637,7 +771,10 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
 
   Future<void> fetchLeaveData() async {
     try {
-      // Define the GraphQL query
+      // Fetch the current user's ID
+      String userId = await Amplify.Auth.getCurrentUser().then((user) => user.userId);
+
+      // Define the GraphQL query to get all leave data
       final request = ModelQueries.list(LeaveStatus.classType);
       final response = await Amplify.API.query(request: request).response;
 
@@ -651,8 +788,11 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
       // Parse the leave data
       List<LeaveStatus?> leaveStatuses = response.data?.items ?? [];
 
+      // Filter leave statuses based on the current user's ID
+      List<LeaveStatus?> userLeaveStatuses = leaveStatuses.where((leave) => leave?.empID == userId).toList();
+
       setState(() {
-        allLeaveData = leaveStatuses;
+        allLeaveData = userLeaveStatuses; // Store only the current user's leave data
       });
 
       // Initially, show all data
@@ -662,6 +802,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
       _showAlertDialog('Error', 'An unexpected error occurred.');
     }
   }
+
   List<String> leaveStatuses = [];
 
   void filterLeaveData() {
@@ -1125,7 +1266,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                           'Pending',
                           style: TextStyle(fontFamily: 'Inter', fontSize: 18,fontWeight: FontWeight.bold ,color: Colors.black),
                         ),
-                        SizedBox(width: size.width * 0.135),
+                        SizedBox(width: size.width * 0.112),
                         IconButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -2574,88 +2715,126 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
               child: Container(
                 color: Colors.black12, // Border color
                 height: 1.0, // Height of the border
-              ),),
+              ),
+            ),
             actions: [
               Row(
-                  children: [
-                    SizedBox(width:size.width * 0.012,),
-                    Center(
-                      child: Container(
-                        height:size.height * 0.260,
-                        width:size.width * 0.260,
-                        child: Image.asset('assets/images/awe logo.png',fit: BoxFit.contain),),),
-                  ]),
+                children: [
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.03), // Responsive width
+                  Center(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.15, // Responsive height
+                      width: MediaQuery.of(context).size.width * 0.3, // Responsive width
+                      child: Image.asset('assets/images/awe logo.png', fit: BoxFit.contain),
+                    ),
+                  ),
+                ],
+              ),
               Spacer(),
-              SizedBox(width:size.width * 0.010), // spacing between icons
-              Badge(
-                  label: Text('1',style: TextStyle(color: black),),
-                  backgroundColor: Colors.yellow,
-                  child: Icon(Icons.notifications,size: 21,color: Colors.black,)),
-              SizedBox(width:size.width * 0.045), // spacing between icons
+              SizedBox(width: MediaQuery.of(context).size.width * 0.05), // Responsive spacing between icons
+              Icon(Icons.notifications_outlined),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02), // Responsive padding
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.03,  // Responsive width
+                    height: MediaQuery.of(context).size.height * 0.03, // Responsive height
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,  // Circular shape
+                      color: Colors.yellow,    // Background color
+                    ),
+                    child: Center(
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.02,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.02), // Responsive spacing between icons
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     'Welcome Nur Hafiza',
-                    style: TextStyle(fontSize: 10,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black87,
-                        fontStyle: FontStyle.normal), // Reduce height between lines
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.025, // Responsive font size
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black87,
+                      fontStyle: FontStyle.normal,
+                    ),
                   ),
                   Text(
                     formattedDate,
-                    style: TextStyle(fontSize: 9,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black54,
-                        fontStyle: FontStyle.normal), // Same height to ensure no spacing
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.022, // Responsive font size
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black54,
+                      fontStyle: FontStyle.normal,
+                    ),
                   ),
                 ],
               ),
-              SizedBox(width:size.width * 0.010,),
-              Stack(
+              SizedBox(width: MediaQuery.of(context).size.width * 0.02), // Responsive spacing
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CircleAvatar(
-                    radius: 18,
-                    child: Image.asset('assets/images/user image.png'),
-                  ),
-                  Positioned(
-                    top:size.height * 0.036,
-                    bottom: 0,
-                    right:size.width * 0.012,
-                    child: GestureDetector(
-                      onTap: (){
-                        _phonePopupMenu(context);
-                      },
-                      child: Container(
-                        width: size.width * 0.032,
-                        height: size.height * 0.09,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: pink,
-                          border: Border.all(color:white ,width: 1),
-                        ),
-                        child: Icon(
-                          Icons.edit,
-                          color: black,
-                          size: 8,
+                  Center(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.085, // Responsive height
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage('assets/images/user image.png'),
+                        radius: MediaQuery.of(context).size.width * 0.055, // Responsive radius
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.035,
+                              width: MediaQuery.of(context).size.width * 0.0999,
+                              padding: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.width * 0.025,
+                                  top: MediaQuery.of(context).size.height * 0.009),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.grey.shade300,
+                                  shape: CircleBorder(),
+                                ),
+                                onPressed: () {
+                                  _phonePopupMenu(context);
+                                },
+                                child: Icon(
+                                  Icons.edit_outlined,
+                                  size: MediaQuery.of(context).size.width * 0.023, // Responsive icon size
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(width:size.width * 0.010),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.02), // Responsive spacing
             ],
-            toolbarHeight:size.height * 0.080,
+            toolbarHeight: MediaQuery.of(context).size.height * 0.089, // Responsive toolbar height
           ),
           backgroundColor: Colors.white,
           body: Column(
             children: [
-              SizedBox(height: size.height * 0.025,),
+              SizedBox(height: size.height * 0.01,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: size.width* 0.10,),
+                  SizedBox(width: size.width* 0.09,),
                   Text('Welcome',style: TextStyle(color: black,fontSize:18 ,fontWeight: FontWeight.bold,fontFamily: 'Inter'),),
                   SizedBox(width: size.width * 0.01,),
                   Text('Nur Hafiza',style: TextStyle(color: griesh,fontFamily:'Inter',fontSize: 20,fontWeight: FontWeight.bold),)
@@ -2668,7 +2847,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                   mobileInfoCard(context,'12/10/2024','Engineer', 'offshore'),
                 ],
               ),
-              SizedBox(height: size.height * 0.04,),
+              SizedBox(height: size.height * 0.035,),
               Row(
                 children: [
                   SizedBox(width: size.width * 0.08),
@@ -2683,7 +2862,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                     width: size.width * 0.88,
                     height: size.height * 0.175,
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300,width: 1),
+                        border: Border.all(color: Colors.grey.shade300,width: 2),
                         borderRadius: BorderRadius.circular(7),
                         color: white
                     ),
@@ -2692,22 +2871,22 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                         SizedBox(height: size.height * 0.016,),
                         Row(
                           children: [
-                            SizedBox(width: size.width * 0.215),
-                            Text('Total AL/SL/UA',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold),),
+                            SizedBox(width: size.width * 0.180),
+                            Text('Total AL/SL/UA',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 8.5,fontWeight: FontWeight.bold),),
                             SizedBox(width: size.width * 0.040),
-                            Text('Leave Taken',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold),),
+                            Text('Leave Taken',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 8.5,fontWeight: FontWeight.bold),),
                             SizedBox(width: size.width * 0.040),
-                            Text('Remaining',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold),),
+                            Text('Remaining',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 8.5,fontWeight: FontWeight.bold),),
                             SizedBox(width: size.width * 0.040),
-                            Text('Leave Request',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold),),
+                            Text('Leave Request',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 8,fontWeight: FontWeight.bold),),
                           ],
                         ),
                         SizedBox(height: size.height * 0.012,),
                         Row(
                           children: [
-                            SizedBox(width: size.width * 0.065),
+                            SizedBox(width: size.width * 0.020),
                             Text('Annual Leave',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold),),
-                            SizedBox(width: size.width * 0.065),
+                            SizedBox(width: size.width * 0.050),
                             Container(
                               width: size.width * 0.062,
                               height: size.height * 0.025,
@@ -2719,7 +2898,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                                   alignment: Alignment.center,
                                   child: Text('7',style: TextStyle(fontFamily: 'Inter',fontSize: 10,color: black,fontWeight: FontWeight.bold),)),
                             ),
-                            SizedBox(width: size.width * 0.104),
+                            SizedBox(width: size.width * 0.100),
                             mobileContainer(context, '4', 10),
                             SizedBox(width: size.width * 0.090),
                             mobileContainer(context, '3', 10),
@@ -2730,9 +2909,9 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                         SizedBox(height: size.height * 0.012,),
                         Row(
                           children: [
-                            SizedBox(width: size.width * 0.065),
+                            SizedBox(width: size.width * 0.020),
                             Text('Sick Leave',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold),),
-                            SizedBox(width: size.width * 0.090),
+                            SizedBox(width: size.width * 0.080),
                             mobileContainer(context, '7', 10),
                             SizedBox(width: size.width * 0.104),
                             mobileContainer(context, '4', 10),
@@ -2745,9 +2924,9 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                         SizedBox(height: size.height * 0.013,),
                         Row(
                           children: [
-                            SizedBox(width: size.width * 0.065),
+                            SizedBox(width: size.width * 0.020),
                             Text('Unpaid Authorize',style: TextStyle(color: black,fontFamily: 'Inter',fontSize: 10,fontWeight: FontWeight.bold),),
-                            SizedBox(width: size.width * 0.032),
+                            SizedBox(width: size.width * 0.020),
                             mobileContainer(context, '', 10),
 
                           ],
@@ -2757,7 +2936,7 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                   )
                 ],
               ),
-              SizedBox(height: size.height * 0.04,),
+              SizedBox(height: size.height * 0.025,),
               Row(
                 children: [
                   SizedBox(width: size.width * 0.075),
@@ -2765,9 +2944,9 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                     'My Recent Leave',
                     style: TextStyle(color: Colors.black, fontFamily: 'Inter', fontSize: 13, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: size.width * 0.266),
+                  SizedBox(width: size.width * 0.199),
                   Container(
-                    width: size.width * 0.180,
+                    width: size.width * 0.190,
                     height: size.height * 0.030,
                     color: Colors.white,
                     child: Material(
@@ -2835,25 +3014,27 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                   ),
                 ],
               ),
+
               Row(
                 children: [
                   Padding(
-                    padding:  EdgeInsets.only(left: size.width * 0.030,top: size.height * 0.02),
+                    padding: EdgeInsets.only(left: size.width * 0.05, top: size.height * 0.02),
                     child: Container(
+                      width: size.width * 0.91,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.grey, width: 1),
+                        border: Border.all(color: Colors.grey.shade300, width: 2),
                       ),
                       child: filteredLeaveData.isNotEmpty
                           ? SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
+                        scrollDirection: Axis.horizontal, // Horizontal scroll added
                         child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
+                          scrollDirection: Axis.vertical, // Vertical scroll
                           child: DataTable(
                             headingRowHeight: filteredLeaveData.isEmpty ? 0 : size.height * 0.042,
                             dataRowHeight: size.height * 0.040,
-                            columnSpacing: size.width * 0.026,
+                            columnSpacing: size.width * 0.02,
                             columns: [
                               DataColumn(label: Text('Leave Type', style: phoneheaderTextStyle)),
                               DataColumn(label: Text('From', style: phoneheaderTextStyle)),
@@ -2862,27 +3043,30 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                               DataColumn(label: Text('Reason', style: phoneheaderTextStyle)),
                               DataColumn(label: Text('Approver', style: phoneheaderTextStyle)),
                               DataColumn(label: Text('Status', style: phoneheaderTextStyle)),
+
                             ],
                             rows: filteredLeaveData.map((leave) {
                               int index = filteredLeaveData.indexOf(leave);
                               return DataRow(
                                 cells: [
-                                  DataCell(GestureDetector(
-                                    onTap: () {
-                                      if (leaveStatuses[index] == 'Pending') {
-                                        _phonependingDialog(context, index, leave, (newStatus) {
-                                          setState(() {
-                                            leaveStatuses[index] = newStatus;
+                                  DataCell(
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (leaveStatuses[index] == 'Pending') {
+                                          _phonependingDialog(context, index, leave, (newStatus) {
+                                            setState(() {
+                                              leaveStatuses[index] = newStatus;
+                                            });
                                           });
-                                        });
-                                      } else if (leaveStatuses[index] == 'Approved') {
-                                        _phoneapprovedDialog(context, index, leave);
-                                      } else if (leaveStatuses[index] == 'Rejected') {
-                                        _phonerejectedDialog(context, index, leave);
-                                      }
-                                    },
-                                    child: Text(leave!.leaveType ?? '', style: phonerowTextStyle),
-                                  )),
+                                        } else if (leaveStatuses[index] == 'Approved') {
+                                          _phoneapprovedDialog(context, index, leave);
+                                        } else if (leaveStatuses[index] == 'Rejected') {
+                                          _phonerejectedDialog(context, index, leave);
+                                        }
+                                      },
+                                      child: Text(leave!.leaveType ?? '', style: phonerowTextStyle),
+                                    ),
+                                  ),
                                   DataCell(Text(
                                     leave.fromDate != null
                                         ? DateFormat('dd/MM/yyyy').format(leave.fromDate!.getDateTime())
@@ -2907,21 +3091,19 @@ class _DashBoardScreeenState extends State<DashBoardScreeen> {
                       )
                           : SizedBox(),
                     ),
-
                   ),
                 ],
               ),
-
-              SizedBox(height: size.height * 0.028,),
+              SizedBox(height: size.height * 0.030,),
               Row(
                 children: [
-                  SizedBox(width: size.width * 0.3,),
+                  SizedBox(width: size.width * 0.23,),
                   MaterialButton(
                     onPressed: (){
                       Get.to(()=>ApplyLeaveScreen());
                     },
-                    minWidth: size.width * 0.075,
-                    height: size.height * 0.055,
+                    minWidth: size.width * 0.05,
+                    height: size.height * 0.045,
                     color: yellow,
                     child: Text('Apply Leave',style: TextStyle(fontFamily: 'Inter,',fontSize: 15,fontWeight: FontWeight.bold,color: black),),
                   ),
@@ -3030,15 +3212,13 @@ Widget requestContainer(BuildContext context, TextEditingController controller,d
         border: InputBorder.none,
       ),
       textAlignVertical: TextAlignVertical.center,
-      ),
+    ),
 
-    );
-
+  );
 }
 
 Widget employeeInfoCard(BuildContext context, String employeeType, String joiningDate, String contractType, String department, String location,double width, double height) {
   final Size size = MediaQuery.of(context).size;
-
   return
       Container(
       width: width,
@@ -3145,7 +3325,6 @@ Widget shoreContainer(BuildContext context, String text,double font){
 
 Widget tabemployeeInfoCard(BuildContext context, String employeeType, String joiningDate, String contractType, String department, String location,double width, double height) {
   final Size size = MediaQuery.of(context).size;
-
   return
       Container(
        width: width,
@@ -4015,11 +4194,11 @@ TextStyle tabrowTextStyle = TextStyle(
 Widget mobileInfoCard(BuildContext context, String joinindate, String department, String location){
   final Size size = MediaQuery.of(context).size;
   return  Container(
-    width: size.width * 0.90,
-    height: size.height * 0.093,
+    width: size.width * 0.9,
+    height: size.height * 0.09,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: Colors.grey.shade300,width: 1),
+        border: Border.all(color: Colors.grey.shade300,width: 2),
         color: Colors.white
     ),
     child: Column(
@@ -4037,7 +4216,7 @@ Widget mobileInfoCard(BuildContext context, String joinindate, String department
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(width: size.width * 0.034),
+            SizedBox(width: size.width * 0.010),
        
             SizedBox(width: size.width * 0.100),
             Text(
@@ -4049,7 +4228,7 @@ Widget mobileInfoCard(BuildContext context, String joinindate, String department
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(width: size.width * 0.130),
+            SizedBox(width: size.width * 0.10),
             Text(
               'Location',
               style: TextStyle(
@@ -4125,7 +4304,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
     Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Container(
-        width: size.width * 0.65,
+        width: size.width * 0.05,
         decoration: BoxDecoration(
           color: dialog,
           borderRadius: BorderRadius.circular(5),
@@ -4139,12 +4318,12 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: size.width * 0.235),
+                  SizedBox(width: size.width * 0.20),
                   Text(
                     'Approved',
                     style: TextStyle(fontFamily: 'Inter', fontSize: 18,fontWeight: FontWeight.bold ,color: Colors.black),
                   ),
-                  SizedBox(width: size.width * 0.150),
+                  SizedBox(width: size.width * 0.12),
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -4158,7 +4337,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('Name',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.130,),
                 Text('Rahul Kumar',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4168,7 +4347,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('Job Title',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.097,),
                 Text('Trainer',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4178,7 +4357,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('Badge',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.122,),
                 Text('50598',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4188,7 +4367,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('Dept/Div',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.095,),
                 Text('5058',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4198,7 +4377,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('Leave Type',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.068,),
                 Text(leave.leaveType ?? 'N/A',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4208,7 +4387,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('Selected Dates',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.020,),
                 Text('${DateFormat('dd/MM/yyyy').format(leave.fromDate!.getDateTime())} to ${DateFormat('dd/MM/yyyy').format(leave.toDate!.getDateTime())}',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4218,7 +4397,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('Apply to',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.096,),
                 Text(leave.applyTo ?? 'N/A',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4228,7 +4407,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('No of days',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.064,),
                 Text('${leave.days ?? 0} days',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4238,7 +4417,7 @@ void _phoneapprovedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.080,),
+                SizedBox(width:size.width *  0.060,),
                 Text('Reason',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
                 SizedBox(width:size.width *  0.099,),
                 Text(leave.reason ?? 'N/A',style: TextStyle(fontFamily: 'Inter',fontSize: 12,color: black),),
@@ -4278,7 +4457,7 @@ void _phonerejectedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
                     'Rejected',
                     style: TextStyle(fontFamily: 'Inter', fontSize: 18,fontWeight: FontWeight.bold ,color: Colors.black),
                   ),
-                  SizedBox(width: size.width * 0.150),
+                  SizedBox(width: size.width * 0.103),
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -4392,7 +4571,7 @@ void _phonerejectedDialog(BuildContext context, int rowIndex, LeaveStatus leave)
                       color: Colors.white,
                       border: Border.all(color: grey,width: 1)
                   ),
-                  child: Text('  Rejected we have production \n   please planing leave latter',style: TextStyle(color: black,fontSize: 10,fontFamily: 'Inter'),),
+                  child: Text(' Rejected we have\n production \n please planing leave latter',style: TextStyle(color: black,fontSize: 10,fontFamily: 'Inter'),),
                 )
               ],
             ),
@@ -4417,10 +4596,10 @@ void _phonerequestDialog(BuildContext context) {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Container(
         padding: EdgeInsets.all(8),
-        width:  size.width * 0.535,
+        width:  size.width * 0.899,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius:BorderRadius.circular(5),
+          borderRadius:BorderRadius.circular(8),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -4428,7 +4607,7 @@ void _phonerequestDialog(BuildContext context) {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width * 0.155,),
+                SizedBox(width:size.width * 0.055,),
                 Text(
                   "Request Ticket",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,fontFamily:  'Inter'),
@@ -4442,8 +4621,8 @@ void _phonerequestDialog(BuildContext context) {
             Divider(),
             SizedBox(height: size.height * 0.012,),
             Container(
-              width: size.width * 0.45,
-              height: size.height * 0.33,
+              width: size.width * 0.69,
+              height: size.height * 0.34,
               decoration: BoxDecoration(
                   color: ticket
               ),
@@ -4453,27 +4632,27 @@ void _phonerequestDialog(BuildContext context) {
                   Row(
                     children: [
                       SizedBox(width: size.width * 0.032,),
-                      Text('Departure Date ',style: TextStyle(color: black,fontSize: 12, fontFamily: 'Inter'),),
-                      SizedBox(width: size.width * 0.012,),
-                      requestContainer(context, departure, size.width * 0.145, size.height * 0.028),
+                      Text('Departure Date ',style: TextStyle(color: black,fontSize: 13, fontFamily: 'Inter'),),
+                      SizedBox(width: size.width * 0.019,),
+                      requestContainer(context, departure, size.width * 0.37, size.height * 0.028),
                     ],
                   ),
                   SizedBox(height: size.height * 0.020,),
                   Row(
                     children: [
                       SizedBox(width: size.width * 0.030,),
-                      Text('Arrival  Date ',style: TextStyle(color: black,fontSize: 12, fontFamily: 'Inter'),),
-                      SizedBox(width: size.width * 0.042,),
-                      requestContainer(context, arrival, size.width * 0.145, size.height * 0.028),
+                      Text('Arrival  Date ',style: TextStyle(color: black,fontSize: 13, fontFamily: 'Inter'),),
+                      SizedBox(width: size.width * 0.058,),
+                      requestContainer(context, arrival, size.width * 0.38, size.height * 0.028),
                     ],
                   ),
                   SizedBox(height: size.height * 0.020,),
                   Row(
                     children: [
                       SizedBox(width: size.width * 0.030,),
-                      Text('Destination',style: TextStyle(color: black,fontSize: 12, fontFamily: 'Inter'),),
-                      SizedBox(width: size.width * 0.056,),
-                      requestContainer(context, destination, size.width * 0.145, size.height * 0.028),
+                      Text('Destination',style: TextStyle(color: black,fontSize: 13, fontFamily: 'Inter'),),
+                      SizedBox(width: size.width * 0.078,),
+                      requestContainer(context, destination, size.width * 0.38, size.height * 0.028),
                     ],
                   ),
                   SizedBox(height: size.height * 0.020,),
@@ -4481,27 +4660,25 @@ void _phonerequestDialog(BuildContext context) {
                     children: [
                       SizedBox(width: size.width * 0.030,),
                       Text('Remarks',style: TextStyle(color: black,fontSize: 12, fontFamily: 'Inter'),),
-                      SizedBox(width: size.width * 0.080,),
-                      requestContainer(context, remarks, size.width * 0.190, size.height * 0.055),
+                      SizedBox(width: size.width * 0.13,),
+                      requestContainer(context, remarks, size.width * 0.38, size.height * 0.055),
                     ],
                   ),
-                  SizedBox(height: size.height * 0.035,),
+                  SizedBox(height: size.height * 0.025,),
                   Row(
                     children: [
-                      SizedBox(width: size.width * 0.135,),
+                      SizedBox(width: size.width * 0.2,),
                       Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: grey), // Outline border color
-                          borderRadius: BorderRadius.circular(0), // Adjust the border radius as needed
-                        ),
-                        child: MaterialButton(
+                        child: OutlinedButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          minWidth: size.width * 0.050, // Adjust width as needed
-                          height: size.height * 0.040, // Adjust height as needed
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0), // Keep border radius consistent
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: Size(size.width * 0.02, size.height * 0.035), // Similar to minWidth and height in MaterialButton
+                            side: BorderSide(color: grey), // Define the border color for the outlined button
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4), // Adjust the border radius as needed
+                            ),
                           ),
                           child: Text(
                             'Cancel',
@@ -4512,12 +4689,12 @@ void _phonerequestDialog(BuildContext context) {
                               color: black,
                             ),
                           ),
-                        ),
-                      ),
-                      SizedBox(width: size.width * 0.030,),
+                        ),),
+
+                      SizedBox(width: size.width * 0.03,),
                       MaterialButton(
-                        minWidth: size.width * 0.125,
-                        height: size.height * 0.048,
+                        minWidth: size.width * 0.19,
+                        height: size.height * 0.035,
                         onPressed: () {
                           Get.back(); // Close the dialog
                         },
@@ -4551,11 +4728,11 @@ void _phoneEditDialog(BuildContext context) {
     Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Container(
-        padding: EdgeInsets.all(8),
-        width:  size.width * 0.425,
+        height: size.height * 0.39,
+        width:  size.width * 0.599,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius:BorderRadius.circular(5),
+          borderRadius:BorderRadius.circular(15),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -4563,29 +4740,29 @@ void _phoneEditDialog(BuildContext context) {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width * 0.028,),
+                SizedBox(width:size.width * 0.039,),
                 Text(
                   "Personal Information",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: black),
                 ),
-                SizedBox(width: size.width * 0.170,),
+                SizedBox(width: size.width * 0.077,),
                 IconButton(onPressed: (){
                   Navigator.pop(context);
                 }, icon: Icon(Icons.cancel_outlined,size: 21,color: black,))
               ],
             ),
             Divider(),
-            SizedBox(height: size.height * 0.012,),
+            SizedBox(height: size.height * 0.02,),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width:size.width *  0.10,),
-                Text('Full Name', style: TextStyle(fontSize: 14)),
-                SizedBox(width: size.width * 0.093,),
+                SizedBox(width:size.width *  0.088,),
+                Text('Full Name', style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600,color: black)),
+                SizedBox(width: size.width * 0.023,),
                 // Text('Last Name', style: TextStyle(fontSize: 14)),
               ],
             ),
-            SizedBox(height: size.height * 0.007,),
+            SizedBox(height: size.height * 0.008,),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -4599,14 +4776,14 @@ void _phoneEditDialog(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(width: size.width * 0.088,),
-                Text('Mobile Number', style: TextStyle(fontSize: 14)),
+                Text('Mobile Number', style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600,color:black)),
               ],
             ),
             SizedBox(height: size.height *0.007,),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width: size.width * 0.088,),
+                SizedBox(width: size.width * 0.089,),
                 phonePopContainer(context, mobile,'8056863355',12)
               ],
             ),
@@ -4615,7 +4792,7 @@ void _phoneEditDialog(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(width: size.width * 0.088,),
-                Text('Email Address', style: TextStyle(fontSize: 14)),
+                Text('Email Address', style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600,color: black)),
               ],
             ),
             SizedBox(height: size.height *0.007,),
@@ -4626,12 +4803,12 @@ void _phoneEditDialog(BuildContext context) {
                 phonePopContainer(context, email,'adinin@gmail.com',12)
               ],
             ),
-            SizedBox(height:size.height * 0.040,),
+            SizedBox(height:size.height * 0.020,),
             Row(
               children: [
-                SizedBox(width: size.width * 0.198,),
+                SizedBox(width: size.width * 0.25,),
                 MaterialButton(
-                  minWidth: size.width * .06,
+                  minWidth: size.width * .09,
                   height: size.height * 0.03,
                   onPressed: () {
                     Get.back(); // Close the dialog
@@ -4656,7 +4833,7 @@ void _phonePopupMenu(BuildContext context) {
   showMenu(
     color: Colors.white,
     context: context,
-    position: RelativeRect.fromLTRB(100, 70, 5, 300), // Position of the menu
+    position: RelativeRect.fromLTRB(100, 140, 5, 300), // Position of the menu
     items: [
       PopupMenuItem<int>(
         value: 0,
@@ -4671,7 +4848,7 @@ void _phonePopupMenu(BuildContext context) {
                 radius: 24,
                 child: Container(
                   width:size.width * 0.110, // Width of the button
-                  height:size.height *  0.050, // Height of the button
+                  height:size.height *  0.03, // Height of the button
                   padding: EdgeInsets.symmetric(vertical:size.height * 0.010,horizontal:size.width * 0.008) ,
                   child: IconButton(
                       color: Colors.black,
@@ -4688,17 +4865,17 @@ void _phonePopupMenu(BuildContext context) {
             SizedBox(height:size.height * 0.005,),
             Row(
                 children: [
-                  SizedBox(width:size.width * 0.050,),
+                  SizedBox(width:size.width * 0.020,),
                   Container(
-                      height:size.height * 0.030,
+                      height:size.height * 0.020,
                       padding: EdgeInsets.only(left: 12),
                       child:Text('Personal Info',
-                        style: TextStyle(fontSize: 13,
+                        style: TextStyle(fontSize: 15,
                             fontWeight: FontWeight.w600,
                             color: Colors.black87,
                             fontStyle: FontStyle.normal),)
                   ),
-                  SizedBox(width:size.width * 0.150,),
+                  SizedBox(width:size.width * 0.20,),
                   GestureDetector(
                     onTap: (){
                       _phoneEditDialog(context);
@@ -4708,7 +4885,7 @@ void _phonePopupMenu(BuildContext context) {
                           children: [
                             TextSpan(
                               text: 'Edit',
-                              style: TextStyle(fontSize: 13,
+                              style: TextStyle(fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.blue,
                                 decoration: TextDecoration.underline,
@@ -4728,7 +4905,7 @@ void _phonePopupMenu(BuildContext context) {
                 SizedBox(width:size.width * 0.035,),
                 Container(
                   height:size.height * 0.034,
-                  width:size.width * 0.405,
+                  width:size.width * 0.53,
                   decoration: BoxDecoration(
                     color: Colors.white, // Background color of the container
                     border: Border.all(
@@ -4740,7 +4917,7 @@ void _phonePopupMenu(BuildContext context) {
 
                   child: Row(
                       children: [
-                        SizedBox(width:size.width * 0.015,),
+                        SizedBox(width:size.width * 0.025,),
                         Text('Nur Hafiza',
                           style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.black87),),]),
                 ),
@@ -4752,7 +4929,7 @@ void _phonePopupMenu(BuildContext context) {
                 SizedBox(width:size.width * 0.035,),
                 Container(
                   height:size.height * 0.034,
-                  width:size.width * 0.405,
+                  width:size.width * 0.53,
                   decoration: BoxDecoration(
                     color: Colors.white, // Background color of the container
                     border: Border.all(
@@ -4762,7 +4939,7 @@ void _phonePopupMenu(BuildContext context) {
                     borderRadius: BorderRadius.circular(5), // Optional: rounded corners
                   ),
                   child: Row(children: [
-                    SizedBox(width:size.width * 0.015,),
+                    SizedBox(width:size.width * 0.025,),
                     Text(
                       '8056863355',
                       style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.black87),),
@@ -4775,7 +4952,7 @@ void _phonePopupMenu(BuildContext context) {
                 SizedBox(width:size.width * 0.035,),
                 Container(
                   height:size.height * 0.034,
-                  width:size.width * 0.405,
+                  width:size.width * 0.53,
                   decoration: BoxDecoration(
                     color: Colors.white, // Background color of the container
                     border: Border.all(
@@ -4785,7 +4962,7 @@ void _phonePopupMenu(BuildContext context) {
                     borderRadius: BorderRadius.circular(5), // Optional: rounded corners
                   ),
                   child:Row(children: [
-                    SizedBox(width:size.width * 0.015,),
+                    SizedBox(width:size.width * 0.025,),
                     Text(
                       'adinin@gmail.com',
                       style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.black87),
@@ -4797,10 +4974,10 @@ void _phonePopupMenu(BuildContext context) {
             SizedBox(height:size.height * 0.010),
             Row(
                 children: [
-                  SizedBox(width:size.width * 0.025,),
+                  SizedBox(width:size.width * 0.03,),
                   Container(
                     height:size.height * 0.040,
-                    width:size.width * 0.230,
+                    width:size.width * 0.290,
                     child: OutlinedButton(
                       onPressed: () {
                         Get.to(() => changePasswordScreen(username: userIdController.text.trim()));
@@ -4819,10 +4996,10 @@ void _phonePopupMenu(BuildContext context) {
                           fontSize: 8,fontWeight: FontWeight.bold,color: Colors.black)),
                     ),
                   ),
-                  SizedBox(width:size.width * 0.015,),
+                  SizedBox(width:size.width * 0.019,),
                   Container(
                     height:size.height * 0.037,
-                    width:size.height * 0.130,
+                    width:size.width * 0.230,
                     child: TextButton(
                       onPressed: () {
                         _confirmSignOut(context);
@@ -4836,7 +5013,7 @@ void _phonePopupMenu(BuildContext context) {
                       ),
                       child: Row(
                           children: [
-                            SizedBox(width:size.width * 0.015,) ,
+                            SizedBox(width:size.width * 0.03,) ,
                             Text('Logout',style: TextStyle(
                                 fontSize: 10,fontWeight: FontWeight.bold,color: Colors.black)),
                             SizedBox(width:size.width * 0.015,) ,
@@ -4855,8 +5032,8 @@ void _phonePopupMenu(BuildContext context) {
 Widget phonePopContainer(BuildContext context, TextEditingController controller,String text, double no){
   final Size size = MediaQuery.of(context).size;
   return Container(
-    width: size.width * 0.30,
-    height: size.height * 0.027, // Increase the height for better alignment
+    width: size.width * 0.49,
+    height: size.height * 0.030, // Increase the height for better alignment
     child: Material(
       color: Colors.transparent,
       child: TextField(
@@ -4867,7 +5044,7 @@ Widget phonePopContainer(BuildContext context, TextEditingController controller,
           hintStyle: TextStyle(fontSize: no),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: grey, width: 1),
-            borderRadius: BorderRadius.circular(0),
+            borderRadius: BorderRadius.circular(3),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.010, horizontal: size.width * 0.007), // Adjust vertical padding
         ),
